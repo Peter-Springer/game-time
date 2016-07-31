@@ -15,6 +15,8 @@ describe('World', function() {
       assert.equal(typeof world.paddles, "object")
     })
 
+    it('should')
+
     it('should take take the first argument and set it as the "height" property', function() {
       let world = new World(500, 50);
       assert.equal(world.height, 500);

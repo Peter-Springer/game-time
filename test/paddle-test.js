@@ -59,15 +59,15 @@ describe('Paddle', function() {
   });
 
   context('paddle should be able to move left and right', function() {
-    it('should move one to the right on x axis', function() {
+    it('should move to the right on x axis', function() {
       let paddle = new Paddle;
       paddle.moveRight()
-      assert.equal(paddle.x, 410)
+      assert.equal(paddle.x, 420)
     });
-    it('should move one to the left on x axis', function() {
+    it('should move to the left on x axis', function() {
       let paddle = new Paddle;
       paddle.moveLeft()
-      assert.equal(paddle.x, 390);
+      assert.equal(paddle.x, 380);
     });
   });
 });
