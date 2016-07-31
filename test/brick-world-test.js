@@ -26,11 +26,11 @@ describe('World in relation to brick', function () {
       assert.isFunction(world.addBrick)
     })
 
-    it.skip('should know about the brick added to world', function () {
+    it('should know about the brick added to world', function () {
       let world = new World
       let brick = new Brick({}, world)
 
       world.addBrick(brick)
-      assert.equal(world.brick, brick)
+      assert.include(world.bricks, brick)
     })
 })

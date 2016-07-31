@@ -38,7 +38,7 @@ describe('World in relation to paddle', function() {
     world.addPaddle(paddle)
 
     world.rightArrowPressed();
-    assert.equal(paddle.x, 410)
+    assert.equal(paddle.x, 420)
   })
 
   it('should move the paddle left when leftArrowpressed() is called', function() {
@@ -47,7 +47,7 @@ describe('World in relation to paddle', function() {
     world.addPaddle(paddle)
 
     world.leftArrowPressed();
-    assert.equal(paddle.x, 390)
+    assert.equal(paddle.x, 380)
   })
 
 })
