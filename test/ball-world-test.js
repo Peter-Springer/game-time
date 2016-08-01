@@ -3,7 +3,7 @@ const Paddle = require('../lib/paddle')
 const Ball = require('../lib/ball');
 const World = require('../lib/world');
 
-describe('Ball in relation to world', function() {
+describe('Ball in Relation to World', function() {
 
   it('should know about a world if it is passed in', function() {
     let world = new World
@@ -32,11 +32,11 @@ describe('Ball in relation to world', function() {
       assert.include(world.balls, ball)
     })
 
-    // it.skip('should have a method called launchBall()', function() {
-    //   let world = new World
-    //   assert.isFunction(world.launchBall)
-    // })
-    //
+    it('should have a method called launchBall()', function() {
+      let world = new World
+      assert.isFunction(world.launchBall)
+    })
+
     // it.skip('should launch the ball when launchBall() is called', function() {
     //   let world = new World
     //   let ball = new Ball({}, world)
