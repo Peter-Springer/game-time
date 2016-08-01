@@ -99,30 +99,4 @@ describe('Ball', function() {
     });
   });
 
-  context('check that ball detects paddle', function() {
-
-    let paddleY = 27;
-    let paddleX = 22;
-    let paddleWidth = 100;
-    let heightValue = 7;
-    let widthValue = 7;
-    let xValue = 20;
-    let yValue = 20;
-    let speedxValue = 5;
-    let speedyValue = -2;
-    let properties = {
-      height: heightValue,
-      width: widthValue,
-      x: xValue,
-      y: yValue,
-      speedx: speedxValue,
-      speedy: speedyValue
-    };
-    const ball = new Ball(properties);
-
-    it('should detect the paddle left and change x and y axis', function() {
-      ball.collisionWithPaddleLeft(paddleY, paddleX, paddleWidth)
-      assert.equal(ball.x, 12)
-    })
-  })
 });

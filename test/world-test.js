@@ -15,7 +15,15 @@ describe('World', function() {
       assert.equal(typeof world.paddles, "object")
     })
 
-    it('should')
+    it('has a ball', function() {
+      let world = new World;
+      assert.equal(typeof world.balls, "object")
+    })
+
+    it('has a brick', function() {
+      let world = new World;
+      assert.equal(typeof world.bricks, "object")
+    })
 
     it('should take take the first argument and set it as the "height" property', function() {
       let world = new World(500, 50);
@@ -33,5 +41,16 @@ describe('World', function() {
       assert.deepEqual(world.bricks, []);
     });
 
+    it('should have a paddles property, which starts out as an empty array', function() {
+      let world = new World(100, 100);
+      assert.isArray(world.paddles);
+      assert.deepEqual(world.paddles, []);
+    });
+
+    it('should have a balls property, which starts out as an empty array', function() {
+      let world = new World(100, 100);
+      assert.isArray(world.balls);
+      assert.deepEqual(world.balls, []);
+    })
   });
 });
