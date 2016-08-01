@@ -6,3 +6,4 @@ require('./paddle-world-test');
 require('./ball-world-test');
 require('./brick-world-test');
 require('./ball-paddle-test');
+require('./ball-brick-test');
