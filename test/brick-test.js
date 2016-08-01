@@ -44,6 +44,16 @@ describe('Brick', function() {
 
     it('assigns widthValue to the brick width', function() {
       assert.equal(brick.width, widthValue);
-    })
+    });
+
+    it('defaults to having a status of true', function () {
+      let brick = new Brick();
+      assert.isTrue(brick.status);
+    });
+
+    it('can take a status option of false that sets the status of the brick to false', function () {
+      let brick = new Brick({ status: false });
+      assert.isFalse(brick.status);
+    });
   })
 });
