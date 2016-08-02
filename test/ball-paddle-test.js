@@ -7,7 +7,7 @@ describe('Ball in  Relation to Paddle', function() {
   context('Ball bounces off top of paddle', function() {
 
 
-    it('should bounce off rigth side of paddle', function() {
+    it.skip('should bounce off rigth side of paddle', function() {
       let heightValue = 7;
       let widthValue = 7;
       let xValue = 400;
