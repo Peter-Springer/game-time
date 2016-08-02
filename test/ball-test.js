@@ -68,6 +68,14 @@ describe('Ball', function() {
       assert.isFunction(ball.moveBall)
     });
 
+    it('should have a method called collisionWithWorld()', function() {
+      assert.isFunction(ball.collisionWithWorld)
+    });
+
+    it('should have a method called collisionWithWorldBottom', function () {
+      assert.isFunction(ball.collisionWithWorldBottom)
+    });
+
     it('should have a method called collisionWithPaddleLeft()', function() {
       assert.isFunction(ball.collisionWithPaddleLeft)
     });
