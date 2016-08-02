@@ -34,9 +34,10 @@ describe('Ball in  Relation to Paddle', function() {
       let world = new World
 
       assert.isFunction(world.paddleDetectionRight)
+
     })
   })
-  // 
+  //
   // context('Ball bounces off top of paddle', function() {
   //
   //

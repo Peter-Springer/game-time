@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 
 const World = require('./../lib/world');
+const Brick = require('./../lib/brick')
 
 describe('World', function() {
   context('World contains the basics', function() {
@@ -62,11 +63,16 @@ describe('World', function() {
       assert.deepEqual(world.balls, []);
     })
   });
-  //
-  // context('Game can be won', function() {
-  //   it.skip('will inform player if the game is won', function() {
-  //     let world = new World
-  //     let ball = new Ball { status: false }
-  //   })
-  // })
+
+  context('Game can be won and lost', function() {
+    it('should be able to tell the user they won', function() {
+      let world = new World
+      let brick = new Brick({ status: true });
+      // let brick = new Brick({ status: true });
+
+      world.addBrick(brick);
+      world.removeHitBricks();
+      assert.deepEqual(world.bricks.length, 1)
+    })
+  })
 });
