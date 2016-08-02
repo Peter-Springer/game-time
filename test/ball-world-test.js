@@ -32,11 +32,6 @@ describe('Ball in Relation to World', function() {
       assert.include(world.balls, ball)
     })
 
-    it('should have a method called launchBall()', function() {
-      let world = new World
-      assert.isFunction(world.launchBall)
-    })
-
     // it.skip('should launch the ball when launchBall() is called', function() {
     //   let world = new World
     //   let ball = new Ball({}, world)

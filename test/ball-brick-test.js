@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 const Ball = require('../lib/ball');
-const Brick = require('../lib/brick')
+const Brick = require('../lib/brick');
+const World = require('../lib/world');
 
 
 describe('this is a brick ball test', function(){
@@ -186,16 +187,18 @@ describe('this is a brick ball test', function(){
         let speedyValue = -2;
         let properties = {
           height: heightValue,
-          width: widthValue,
+          width: widthValue, 
           x: xValue,
           y: yValue,
           speedx: speedxValue,
           speedy: speedyValue
         };
         let ball = new Ball(properties, "", "", new Brick()) // the ball is i px underneath the brick// brick is default at 100, 100
+        let world = new World
 
         ball.moveBall();
         ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width)
+        world.brickDetection()
         assert.equal(ball.speedx, -5);
         assert.equal(ball.speedy, 2);
         // we need to move the ball basically to the same location as the brick
