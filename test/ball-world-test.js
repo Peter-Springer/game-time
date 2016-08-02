@@ -32,14 +32,20 @@ describe('Ball in Relation to World', function() {
       assert.include(world.balls, ball)
     })
 
-    // it.skip('should launch the ball when launchBall() is called', function() {
-    //   let world = new World
-    //   let ball = new Ball({}, world)
-    //
-    //   world.addBall(ball)
-    //   world.launchBall();
-    //   assert.equal(ball.x, 5)
-    // })
+    it('should have a method called launchBall()', function() {
+      let world = new World
+      assert.isFunction(world.launchBall)
+    })
+
+    it('should launch the ball when launchBall() is called', function() {
+      let world = new World
+      let ball = new Ball({}, world)
+
+      world.addBall(ball)
+      world.launchBall();
+      assert.equal(ball.x, 446)
+      assert.equal(ball.y, 401)
+    })
   })
 
 })

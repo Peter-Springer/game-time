@@ -26,14 +26,23 @@ describe('World', function() {
       assert.equal(typeof world.bricks, "object")
     })
 
-    it('should take take the first argument and set it as the "height" property', function() {
-      let world = new World(500, 50);
+    it('should have default values', function() {
+      let world = new World;
       assert.equal(world.height, 500);
-    });
-
-    it('should take take the second argument and set it as the "width" property', function() {
-      let world = new World(50, 900);
       assert.equal(world.width, 900);
+    })
+
+    it('should take given values as properties', function() {
+      let heightValue = 400;
+      let widthValue = 800;
+      let properties = {
+        height : heightValue,
+        width : widthValue
+      }
+      const world = new World(properties);
+
+      assert.equal(world.height, 400);
+      assert.equal(world.width, 800);
     });
 
     it('should have a bricks property, which starts out as an empty array', function() {
@@ -54,6 +63,7 @@ describe('World', function() {
       assert.deepEqual(world.balls, []);
     })
   });
+
   context('Game can be won and lost', function() {
     it('should be able to tell the user they won', function() {
       let world = new World
