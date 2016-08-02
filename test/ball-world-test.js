@@ -46,6 +46,28 @@ describe('Ball in Relation to World', function() {
       assert.equal(ball.x, 446)
       assert.equal(ball.y, 401)
     })
+
+    it('should know when it collides with world bottom', function() {
+      let world = new World;
+      let heightValue = 7;
+      let widthValue = 7;
+      let xValue = 20;
+      let yValue = 499;
+      let speedxValue = 5;
+      let speedyValue = 2;
+      let properties = {
+        height: heightValue,
+        width: widthValue,
+        x: xValue,
+        y: yValue,
+        speedx: speedxValue,
+        speedy: speedyValue
+      };
+      let ball = new Ball(properties);
+      ball.collisionWithWorldBottom(world.height)
+
+      assert.isTrue(ball.collisionWithWorldBottom(world.height))
+    })
   })
 
 })
