@@ -37,14 +37,15 @@ describe('Ball in Relation to World', function() {
       assert.isFunction(world.launchBall)
     })
 
-    // it.skip('should launch the ball when launchBall() is called', function() {
-    //   let world = new World
-    //   let ball = new Ball({}, world)
-    //
-    //   world.addBall(ball)
-    //   world.launchBall();
-    //   assert.equal(ball.x, 5)
-    // })
+    it('should launch the ball when launchBall() is called', function() {
+      let world = new World
+      let ball = new Ball({}, world)
+
+      world.addBall(ball)
+      world.launchBall();
+      assert.equal(ball.x, 446)
+      assert.equal(ball.y, 401)
+    })
   })
 
 })

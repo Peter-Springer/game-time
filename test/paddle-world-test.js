@@ -49,5 +49,4 @@ describe('World in relation to paddle', function() {
     world.leftArrowPressed();
     assert.equal(paddle.x, 380)
   })
-
 })
