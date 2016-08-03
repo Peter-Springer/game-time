@@ -1,4 +1,6 @@
 body {
+  background-image: url(breakoutbackground.svg);
+  background-size: cover;
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -6,5 +8,6 @@ body {
 }
 
 #canvas {
-  border: 1px solid #000000;
+  border: 2px solid #FFFFFF;
+  background-image: url(breakoutbackground.svgx);
 }
