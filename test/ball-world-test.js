@@ -68,6 +68,73 @@ describe('Ball in Relation to World', function() {
 
       assert.isTrue(ball.collisionWithWorldBottom(world.height))
     })
+
+    it('should know when it collides with world top', function() {
+      let world = new World;
+      let heightValue = 7;
+      let widthValue = 7;
+      let xValue = 20;
+      let yValue = -3;
+      let speedxValue = 5;
+      let speedyValue = 2;
+      let properties = {
+        height: heightValue,
+        width: widthValue,
+        x: xValue,
+        y: yValue,
+        speedx: speedxValue,
+        speedy: speedyValue
+      };
+      let ball = new Ball(properties);
+      ball.collisionWithWorld(world.width, world.height)
+
+      assert.isTrue(ball.collisionWithWorld(world.width, world.height))
+    })
+
+    it('should know when it collides with world left', function() {
+      let world = new World;
+      let heightValue = 7;
+      let widthValue = 7;
+      let xValue = -3;
+      let yValue = 20;
+      let speedxValue = 2;
+      let speedyValue = 2;
+      let properties = {
+        height: heightValue,
+        width: widthValue,
+        x: xValue,
+        y: yValue,
+        speedx: speedxValue,
+        speedy: speedyValue
+      };
+      let ball = new Ball(properties);
+      ball.collisionWithWorld(world.width, world.height)
+
+      assert.isTrue(ball.collisionWithWorld(world.width, world.height))
+    })
+
+    it('should know when it collides with world right', function() {
+      let world = new World;
+      let heightValue = 7;
+      let widthValue = 7;
+      let xValue = 899;
+      let yValue = 20;
+      let speedxValue = 2;
+      let speedyValue = 2;
+      let properties = {
+        height: heightValue,
+        width: widthValue,
+        x: xValue,
+        y: yValue,
+        speedx: speedxValue,
+        speedy: speedyValue
+      };
+      let ball = new Ball(properties);
+      ball.collisionWithWorld(world.width, world.height)
+      debugger;
+
+      assert.isTrue(ball.collisionWithWorld(world.width, world.height))
+    })
   })
 
 })

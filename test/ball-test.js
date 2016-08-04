@@ -95,6 +95,10 @@ describe('Ball', function() {
     it('should have a method called collisionWithPaddleRight()', function() {
       assert.isFunction(ball.collisionWithPaddleRight)
     });
+
+    it('should have a method calles collidesWithBrick()', function() {
+      assert.isFunction(ball.collidesWithBrick)
+    })      
   });
 
   context('check that ball moves around world', function() {
