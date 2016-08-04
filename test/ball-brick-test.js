@@ -174,31 +174,30 @@ describe('this is a brick ball test', function(){
         assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
       });
 
-  //     it ('collisoin should invert y axis if we hit the brick from the bottom', function(){
-  //
-  //       let heightValue = 7;
-  //       let widthValue = 7;
-  //       let xValue = 130;
-  //       let yValue = 121;
-  //       let speedxValue = 5;
-  //       let speedyValue = -2;
-  //       let properties = {
-  //         height: heightValue,
-  //         width: widthValue,
-  //         x: xValue,
-  //         y: yValue,
-  //         speedx: speedxValue,
-  //         speedy: speedyValue
-  //       };
-  //       let ball = new Ball(properties, "", "", new Brick())
-  //       let world = new World
-  //
-  //       ball.moveBall();
-  //       ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width)
-  //       world. brickDetection()
-  //       assert.equal(ball.speedx, -5);
-  //       assert.equal(ball.speedy, 2);
-  //     });
+      // it ('collisoin should invert y axis if we hit the brick from the bottom', function(){
+      //
+      //   let heightValue = 7;
+      //   let widthValue = 7;
+      //   let xValue = 130;
+      //   let yValue = 121;
+      //   let speedxValue = 5;
+      //   let speedyValue = -2;
+      //   let properties = {
+      //     height: heightValue,
+      //     width: widthValue,
+      //     x: xValue,
+      //     y: yValue,
+      //     speedx: speedxValue,
+      //     speedy: speedyValue
+      //   };
+      //   let ball = new Ball(properties, "", "", new Brick())
+      //   let world = new World
+      //
+      //   ball.moveBall()
+      //   ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width)
+      //   world. brickDetection()
+      //   assert.equal(ball.speedy, 2);
+      // });
   //
   //     it ('collisoin should return true if we hit the brick from the right bottom', function(){
   //

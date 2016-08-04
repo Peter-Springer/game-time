@@ -64,23 +64,41 @@ describe('World', function() {
     })
   });
 
-  context('Game can be won and lost', function() {
-    // it('should be able to tell the user they lost',function() {
-    // let world = new World
-    // let brick = new Brick ({ x: 485 })
-    //
-    //
-    // assert
-    // })
+  context('check that world has functions', function() {
 
-    // it('should be able to tell the user they won', function() {
-    //   let world = new World
-    //   let brick = new Brick({ status: true });
-    //   // let brick = new Brick({ status: true });
-    //
-    //   world.addBrick(brick);
-    //   world.removeHitBricks();
-    //   assert.deepEqual(world.bricks.length, 1)
-    // })
+    it('should have a method called startGame()', function() {
+      let world = new World
+      assert.isFunction(world.startGame)
+    })
+
+    it('should have a method called addPaddle()', function() {
+      let world = new World
+      assert.isFunction(world.addPaddle)
+    })
+
+    it('should have a method called rightArrowPressed()', function() {
+      let world = new World
+      assert.isFunction(world.rightArrowPressed)
+    })
+
+    it('should have a method called leftArrowPressed()', function() {
+      let world = new World
+      assert.isFunction(world.leftArrowPressed)
+    })
+
+    it('should have a method called worldBorderDetection()', function() {
+      let world = new World
+      assert.isFunction(world.worldBorderDetection)
+    })
+
+    it('should have a method called loseGame()', function() {
+      let world = new World
+      assert.isFunction(world.loseGame)
+    })
+
+    it('should have a method called winTheGame()', function() {
+      let world = new World
+      assert.isFunction(world.winTheGame)
+    })
   })
-});
+})
