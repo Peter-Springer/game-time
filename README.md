@@ -7,7 +7,7 @@ This version of breakout was built using ES6 and
 HTML5 canvas. Click spacebar to start the game and use
 the left and right arrow keys to move the paddle.
 
-## <a href="peter-springer.github.io">Play Here</a>
+## <a href="https://peter-springer.github.io/game-time">Play Here</a>
 
 
 
