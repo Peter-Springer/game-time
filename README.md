@@ -1,3 +1,16 @@
+# BREAKOUT
+
+
+<img src="./css/game-time.jpg" height="200" width="300">
+
+This version of breakout was built using ES6 and
+HTML5 canvas. Click spacebar to start the game and use
+the left and right arrow keys to move the paddle.
+
+## <a href="peter-springer.github.io">Play Here</a>
+
+
+
 # Game Time Starter Kit
 
 To install the dependencies:
