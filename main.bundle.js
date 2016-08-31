@@ -44,18 +44,20 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
-	const canvas = document.getElementById('canvas');
-	const context = canvas.getContext('2d');
-	const $ = __webpack_require__(5);
-	const world = new World(canvas.width, canvas.height);
-	const paddles = world.addPaddle(new Paddle({}, world));
-	const balls = world.addBall(new Ball({}, world));
+	'use strict';
 
-	placeBricks = () => {
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	var $ = __webpack_require__(5);
+	var world = new World(canvas.width, canvas.height);
+	var paddles = world.addPaddle(new Paddle({}, world));
+	var balls = world.addBall(new Ball({}, world));
+
+	placeBricks = function placeBricks() {
 	  for (var i = 0; i < 37; i++) {
 	    world.addBrick(new Brick({}, world));
 	    world.bricks[i].x = 10 + i % 12 * 75;
@@ -73,24 +75,24 @@
 
 	placeBricks();
 
-	renderWorld = context => {
+	renderWorld = function renderWorld(context) {
 	  context.clearRect(0, 0, world.width, world.height);
 
-	  world.paddles.forEach(paddle => {
+	  world.paddles.forEach(function (paddle) {
 	    context.fillStyle = 'white';
 	    context.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 	  });
-	  world.bricks.forEach(brick => {
+	  world.bricks.forEach(function (brick) {
 	    context.fillStyle = 'white';
 	    context.fillRect(brick.x, brick.y, brick.width, brick.height);
 	  });
-	  world.balls.forEach(ball => {
+	  world.balls.forEach(function (ball) {
 	    context.fillStyle = 'white';
 	    context.fillRect(ball.x, ball.y, ball.width, ball.height, ball.speedx, ball.speedy);
 	  });
 	};
 
-	renderStartScreen = context => {
+	renderStartScreen = function renderStartScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
@@ -107,7 +109,7 @@
 	  context.fillText("Use the left and right arrows to move your paddle.", canvas.width / 2, 350);
 	};
 
-	renderLoseScreen = context => {
+	renderLoseScreen = function renderLoseScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
@@ -120,7 +122,7 @@
 	  context.fillText("Press esc to restart.", canvas.width / 2, 350);
 	};
 
-	renderWinScreen = context => {
+	renderWinScreen = function renderWinScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
@@ -161,13 +163,23 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Paddle {
-	  constructor(properties, world, ball) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
+
+	var Paddle = function () {
+	  function Paddle(properties, world, ball) {
+	    _classCallCheck(this, Paddle);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 10;
 	    this.width = properties.width || 100;
 	    this.x = properties.x || 400;
@@ -176,18 +188,26 @@
 	    this.ball = ball;
 	  }
 
-	  moveRight() {
-	    if (this.x + this.width === 900) return this.x;
-	    this.x = this.x + 20;
-	    return this.x;
-	  }
+	  _createClass(Paddle, [{
+	    key: 'moveRight',
+	    value: function moveRight() {
+	      if (this.x + this.width === 900) return this.x;
+	      this.x = this.x + 20;
+	      return this.x;
+	    }
+	  }, {
+	    key: 'moveLeft',
+	    value: function moveLeft() {
+	      if (this.x === 0) return this.x;
+	      this.x = this.x - 20;
+	      return this.x;
+	    }
+	  }]);
 
-	  moveLeft() {
-	    if (this.x === 0) return this.x;
-	    this.x = this.x - 20;
-	    return this.x;
-	  }
-	};
+	  return Paddle;
+	}();
+
+	;
 
 	module.exports = Paddle;
 
@@ -195,13 +215,23 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Ball {
-	  constructor(properties, world, paddle, brick) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
+
+	var Ball = function () {
+	  function Ball(properties, world, paddle, brick) {
+	    _classCallCheck(this, Ball);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 16;
 	    this.width = properties.width || 16;
 	    this.x = properties.x || 442;
@@ -213,61 +243,75 @@
 	    this.brick = brick;
 	  }
 
-	  moveBall() {
-	    this.y = this.y + this.speedy;
-	    this.x = this.x + this.speedx;
-	  }
-
-	  collisionWithWorld(worldWidth, worldHeight, worldPlay) {
-	    if (this.x + this.speedx > worldWidth - this.width || this.x + this.speedx < 0) {
-	      return this.speedx = -this.speedx, true;
-	    };
-	    if (this.y + this.speedy < 0) {
-	      return this.speedy = -this.speedy, true;
-	    };
-	  }
-
-	  collisionWithWorldBottom(worldHeight) {
-	    if (this.y + this.speedy > worldHeight - this.height) {
-	      return true;
+	  _createClass(Ball, [{
+	    key: 'moveBall',
+	    value: function moveBall() {
+	      this.y = this.y + this.speedy;
+	      this.x = this.x + this.speedx;
 	    }
-	  }
-
-	  collisionWithPaddleLeft(paddleY, paddleX, paddleWidth) {
-	    if (this.x + this.width >= paddleX && this.x < paddleX + paddleWidth * .20 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = -8;
+	  }, {
+	    key: 'collisionWithWorld',
+	    value: function collisionWithWorld(worldWidth, worldHeight, worldPlay) {
+	      if (this.x + this.speedx > worldWidth - this.width || this.x + this.speedx < 0) {
+	        return this.speedx = -this.speedx, true;
+	      };
+	      if (this.y + this.speedy < 0) {
+	        return this.speedy = -this.speedy, true;
+	      };
 	    }
-	  }
-
-	  collisionWithPaddleMiddleLeft(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .20 && this.x <= paddleX + paddleWidth * .40 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = -4;
+	  }, {
+	    key: 'collisionWithWorldBottom',
+	    value: function collisionWithWorldBottom(worldHeight) {
+	      if (this.y + this.speedy > worldHeight - this.height) {
+	        return true;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleMiddle(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .40 && this.x <= paddleX + paddleWidth * .60 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy;
+	  }, {
+	    key: 'collisionWithPaddleLeft',
+	    value: function collisionWithPaddleLeft(paddleY, paddleX, paddleWidth) {
+	      if (this.x + this.width >= paddleX && this.x < paddleX + paddleWidth * .20 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = -8;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleMiddleRight(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .60 && this.x <= paddleX + paddleWidth * .80 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = 4;
+	  }, {
+	    key: 'collisionWithPaddleMiddleLeft',
+	    value: function collisionWithPaddleMiddleLeft(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .20 && this.x <= paddleX + paddleWidth * .40 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = -4;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleRight(paddleY, paddleX, paddleWidth) {
-	    if (this.x > paddleX + paddleWidth * .80 && this.x <= paddleX + paddleWidth && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = 8;
+	  }, {
+	    key: 'collisionWithPaddleMiddle',
+	    value: function collisionWithPaddleMiddle(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .40 && this.x <= paddleX + paddleWidth * .60 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy;
+	      }
 	    }
-	  }
+	  }, {
+	    key: 'collisionWithPaddleMiddleRight',
+	    value: function collisionWithPaddleMiddleRight(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .60 && this.x <= paddleX + paddleWidth * .80 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = 4;
+	      }
+	    }
+	  }, {
+	    key: 'collisionWithPaddleRight',
+	    value: function collisionWithPaddleRight(paddleY, paddleX, paddleWidth) {
+	      if (this.x > paddleX + paddleWidth * .80 && this.x <= paddleX + paddleWidth && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = 8;
+	      }
+	    }
+	  }, {
+	    key: 'collidesWithBrick',
+	    value: function collidesWithBrick(brickX, brickY, brickHeight, brickWidth) {
+	      return this.x < brickX + brickWidth && this.x + this.width > brickX && this.y < brickY + brickHeight && this.y + this.height > brickY;
+	    }
+	  }]);
 
-	  collidesWithBrick(brickX, brickY, brickHeight, brickWidth) {
-	    return this.x < brickX + brickWidth && this.x + this.width > brickX && this.y < brickY + brickHeight && this.y + this.height > brickY;
-	  }
+	  return Ball;
+	}();
 
-	};
+	;
 
 	module.exports = Ball;
 
@@ -275,21 +319,29 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Brick {
-	  constructor(properties, world) {
-	    if (typeof properties !== 'object') properties = {};
-	    this.height = properties.height || 20;
-	    this.width = properties.width || 60;
-	    this.x = properties.x || 100;
-	    this.y = properties.y || 100;
-	    this.world = world;
-	    this.status = properties.status === undefined ? true : properties.status;
-	  }
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var World = __webpack_require__(4);
+
+	var Brick = function Brick(properties, world) {
+	  _classCallCheck(this, Brick);
+
+	  if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
+	  this.height = properties.height || 20;
+	  this.width = properties.width || 60;
+	  this.x = properties.x || 100;
+	  this.y = properties.y || 100;
+	  this.world = world;
+	  this.status = properties.status === undefined ? true : properties.status;
 	};
+
+	;
 
 	module.exports = Brick;
 
@@ -297,13 +349,23 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
+	'use strict';
 
-	class World {
-	  constructor(properties, ball) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+
+	var World = function () {
+	  function World(properties, ball) {
+	    _classCallCheck(this, World);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 500;
 	    this.width = properties.width || 900;
 	    this.paddles = [];
@@ -313,119 +375,158 @@
 	    this.play = 1;
 	  }
 
-	  startGame() {
-	    this.play = this.play = 2;
-	  }
+	  _createClass(World, [{
+	    key: 'startGame',
+	    value: function startGame() {
+	      this.play = this.play = 2;
+	    }
+	  }, {
+	    key: 'addPaddle',
+	    value: function addPaddle(paddle) {
+	      this.paddles.push(paddle);
+	    }
+	  }, {
+	    key: 'rightArrowPressed',
+	    value: function rightArrowPressed() {
+	      this.paddles.forEach(function (paddle) {
+	        paddle.moveRight();
+	      });
+	    }
+	  }, {
+	    key: 'leftArrowPressed',
+	    value: function leftArrowPressed() {
+	      this.paddles.forEach(function (paddle) {
+	        paddle.moveLeft();
+	      });
+	    }
+	  }, {
+	    key: 'addBrick',
+	    value: function addBrick(brick) {
+	      this.bricks.push(brick);
+	    }
+	  }, {
+	    key: 'addBall',
+	    value: function addBall(ball) {
+	      this.balls.push(ball);
+	    }
+	  }, {
+	    key: 'launchBall',
+	    value: function launchBall() {
+	      this.balls.forEach(function (ball) {
+	        ball.moveBall();
+	      });
+	    }
+	  }, {
+	    key: 'worldBorderDetection',
+	    value: function worldBorderDetection() {
+	      var _this = this;
 
-	  addPaddle(paddle) {
-	    this.paddles.push(paddle);
-	  }
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithWorld(_this.width, _this.height);
+	      });
+	    }
+	  }, {
+	    key: 'loseGame',
+	    value: function loseGame() {
+	      var _this2 = this;
 
-	  rightArrowPressed() {
-	    this.paddles.forEach(paddle => {
-	      paddle.moveRight();
-	    });
-	  }
-
-	  leftArrowPressed() {
-	    this.paddles.forEach(paddle => {
-	      paddle.moveLeft();
-	    });
-	  }
-
-	  addBrick(brick) {
-	    this.bricks.push(brick);
-	  }
-
-	  addBall(ball) {
-	    this.balls.push(ball);
-	  }
-
-	  launchBall() {
-	    this.balls.forEach(ball => {
-	      ball.moveBall();
-	    });
-	  }
-
-	  worldBorderDetection() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithWorld(this.width, this.height);
-	    });
-	  }
-
-	  loseGame() {
-	    this.balls.forEach(ball => {
-	      if (ball.collisionWithWorldBottom(this.height)) {
-	        return this.play = this.play = 3;
-	      }
-	    });
-	  }
-
-	  paddleDetectionLeft() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleLeft(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddleLeft() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddleLeft(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddle() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddle(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddleRight() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddleRight(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionRight() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleRight(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  brickDetection() {
-	    this.bricks.find(brick => {
-	      this.balls.forEach(ball => {
-	        if (ball.collidesWithBrick(brick.x, brick.y, brick.height, brick.width)) {
-	          return ball.speedy = -ball.speedy, brick.status = false;
+	      this.balls.forEach(function (ball) {
+	        if (ball.collisionWithWorldBottom(_this2.height)) {
+	          return _this2.play = _this2.play = 3;
 	        }
 	      });
-	    });
-	  }
-
-	  removeHitBricks() {
-	    this.bricks = this.bricks.filter(brick => brick.status);
-	  }
-
-	  winTheGame() {
-	    if (this.bricks.length === 0) {
-	      return this.play = this.play = 4;
 	    }
-	  }
+	  }, {
+	    key: 'paddleDetectionLeft',
+	    value: function paddleDetectionLeft() {
+	      var _this3 = this;
 
-	  tick() {
-	    this.launchBall();
-	    this.worldBorderDetection();
-	    this.paddleDetectionLeft();
-	    this.paddleDetectionMiddleLeft();
-	    this.paddleDetectionMiddle();
-	    this.paddleDetectionMiddleRight();
-	    this.paddleDetectionRight();
-	    this.brickDetection();
-	    this.removeHitBricks();
-	    this.loseGame();
-	    this.winTheGame();
-	  }
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleLeft(_this3.paddles[0].y, _this3.paddles[0].x, _this3.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddleLeft',
+	    value: function paddleDetectionMiddleLeft() {
+	      var _this4 = this;
 
-	}
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddleLeft(_this4.paddles[0].y, _this4.paddles[0].x, _this4.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddle',
+	    value: function paddleDetectionMiddle() {
+	      var _this5 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddle(_this5.paddles[0].y, _this5.paddles[0].x, _this5.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddleRight',
+	    value: function paddleDetectionMiddleRight() {
+	      var _this6 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddleRight(_this6.paddles[0].y, _this6.paddles[0].x, _this6.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionRight',
+	    value: function paddleDetectionRight() {
+	      var _this7 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleRight(_this7.paddles[0].y, _this7.paddles[0].x, _this7.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'brickDetection',
+	    value: function brickDetection() {
+	      var _this8 = this;
+
+	      this.bricks.find(function (brick) {
+	        _this8.balls.forEach(function (ball) {
+	          if (ball.collidesWithBrick(brick.x, brick.y, brick.height, brick.width)) {
+	            return ball.speedy = -ball.speedy, brick.status = false;
+	          }
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'removeHitBricks',
+	    value: function removeHitBricks() {
+	      this.bricks = this.bricks.filter(function (brick) {
+	        return brick.status;
+	      });
+	    }
+	  }, {
+	    key: 'winTheGame',
+	    value: function winTheGame() {
+	      if (this.bricks.length === 0) {
+	        return this.play = this.play = 4;
+	      }
+	    }
+	  }, {
+	    key: 'tick',
+	    value: function tick() {
+	      this.launchBall();
+	      this.worldBorderDetection();
+	      this.paddleDetectionLeft();
+	      this.paddleDetectionMiddleLeft();
+	      this.paddleDetectionMiddle();
+	      this.paddleDetectionMiddleRight();
+	      this.paddleDetectionRight();
+	      this.brickDetection();
+	      this.removeHitBricks();
+	      this.loseGame();
+	      this.winTheGame();
+	    }
+	  }]);
+
+	  return World;
+	}();
 
 	module.exports = World;
 

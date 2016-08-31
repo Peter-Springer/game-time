@@ -63,13 +63,23 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Paddle {
-	  constructor(properties, world, ball) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
+
+	var Paddle = function () {
+	  function Paddle(properties, world, ball) {
+	    _classCallCheck(this, Paddle);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 10;
 	    this.width = properties.width || 100;
 	    this.x = properties.x || 400;
@@ -78,18 +88,26 @@
 	    this.ball = ball;
 	  }
 
-	  moveRight() {
-	    if (this.x + this.width === 900) return this.x;
-	    this.x = this.x + 20;
-	    return this.x;
-	  }
+	  _createClass(Paddle, [{
+	    key: 'moveRight',
+	    value: function moveRight() {
+	      if (this.x + this.width === 900) return this.x;
+	      this.x = this.x + 20;
+	      return this.x;
+	    }
+	  }, {
+	    key: 'moveLeft',
+	    value: function moveLeft() {
+	      if (this.x === 0) return this.x;
+	      this.x = this.x - 20;
+	      return this.x;
+	    }
+	  }]);
 
-	  moveLeft() {
-	    if (this.x === 0) return this.x;
-	    this.x = this.x - 20;
-	    return this.x;
-	  }
-	};
+	  return Paddle;
+	}();
+
+	;
 
 	module.exports = Paddle;
 
@@ -97,13 +115,23 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Ball {
-	  constructor(properties, world, paddle, brick) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
+
+	var Ball = function () {
+	  function Ball(properties, world, paddle, brick) {
+	    _classCallCheck(this, Ball);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 16;
 	    this.width = properties.width || 16;
 	    this.x = properties.x || 442;
@@ -115,61 +143,75 @@
 	    this.brick = brick;
 	  }
 
-	  moveBall() {
-	    this.y = this.y + this.speedy;
-	    this.x = this.x + this.speedx;
-	  }
-
-	  collisionWithWorld(worldWidth, worldHeight, worldPlay) {
-	    if (this.x + this.speedx > worldWidth - this.width || this.x + this.speedx < 0) {
-	      return this.speedx = -this.speedx, true;
-	    };
-	    if (this.y + this.speedy < 0) {
-	      return this.speedy = -this.speedy, true;
-	    };
-	  }
-
-	  collisionWithWorldBottom(worldHeight) {
-	    if (this.y + this.speedy > worldHeight - this.height) {
-	      return true;
+	  _createClass(Ball, [{
+	    key: 'moveBall',
+	    value: function moveBall() {
+	      this.y = this.y + this.speedy;
+	      this.x = this.x + this.speedx;
 	    }
-	  }
-
-	  collisionWithPaddleLeft(paddleY, paddleX, paddleWidth) {
-	    if (this.x + this.width >= paddleX && this.x < paddleX + paddleWidth * .20 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = -8;
+	  }, {
+	    key: 'collisionWithWorld',
+	    value: function collisionWithWorld(worldWidth, worldHeight, worldPlay) {
+	      if (this.x + this.speedx > worldWidth - this.width || this.x + this.speedx < 0) {
+	        return this.speedx = -this.speedx, true;
+	      };
+	      if (this.y + this.speedy < 0) {
+	        return this.speedy = -this.speedy, true;
+	      };
 	    }
-	  }
-
-	  collisionWithPaddleMiddleLeft(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .20 && this.x <= paddleX + paddleWidth * .40 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = -4;
+	  }, {
+	    key: 'collisionWithWorldBottom',
+	    value: function collisionWithWorldBottom(worldHeight) {
+	      if (this.y + this.speedy > worldHeight - this.height) {
+	        return true;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleMiddle(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .40 && this.x <= paddleX + paddleWidth * .60 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy;
+	  }, {
+	    key: 'collisionWithPaddleLeft',
+	    value: function collisionWithPaddleLeft(paddleY, paddleX, paddleWidth) {
+	      if (this.x + this.width >= paddleX && this.x < paddleX + paddleWidth * .20 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = -8;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleMiddleRight(paddleY, paddleX, paddleWidth) {
-	    if (this.x >= paddleX + paddleWidth * .60 && this.x <= paddleX + paddleWidth * .80 && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = 4;
+	  }, {
+	    key: 'collisionWithPaddleMiddleLeft',
+	    value: function collisionWithPaddleMiddleLeft(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .20 && this.x <= paddleX + paddleWidth * .40 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = -4;
+	      }
 	    }
-	  }
-
-	  collisionWithPaddleRight(paddleY, paddleX, paddleWidth) {
-	    if (this.x > paddleX + paddleWidth * .80 && this.x <= paddleX + paddleWidth && this.y + this.height === paddleY) {
-	      return this.speedy = -this.speedy, this.speedx = 8;
+	  }, {
+	    key: 'collisionWithPaddleMiddle',
+	    value: function collisionWithPaddleMiddle(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .40 && this.x <= paddleX + paddleWidth * .60 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy;
+	      }
 	    }
-	  }
+	  }, {
+	    key: 'collisionWithPaddleMiddleRight',
+	    value: function collisionWithPaddleMiddleRight(paddleY, paddleX, paddleWidth) {
+	      if (this.x >= paddleX + paddleWidth * .60 && this.x <= paddleX + paddleWidth * .80 && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = 4;
+	      }
+	    }
+	  }, {
+	    key: 'collisionWithPaddleRight',
+	    value: function collisionWithPaddleRight(paddleY, paddleX, paddleWidth) {
+	      if (this.x > paddleX + paddleWidth * .80 && this.x <= paddleX + paddleWidth && this.y + this.height === paddleY) {
+	        return this.speedy = -this.speedy, this.speedx = 8;
+	      }
+	    }
+	  }, {
+	    key: 'collidesWithBrick',
+	    value: function collidesWithBrick(brickX, brickY, brickHeight, brickWidth) {
+	      return this.x < brickX + brickWidth && this.x + this.width > brickX && this.y < brickY + brickHeight && this.y + this.height > brickY;
+	    }
+	  }]);
 
-	  collidesWithBrick(brickX, brickY, brickHeight, brickWidth) {
-	    return this.x < brickX + brickWidth && this.x + this.width > brickX && this.y < brickY + brickHeight && this.y + this.height > brickY;
-	  }
+	  return Ball;
+	}();
 
-	};
+	;
 
 	module.exports = Ball;
 
@@ -177,21 +219,29 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const World = __webpack_require__(4);
+	'use strict';
 
-	class Brick {
-	  constructor(properties, world) {
-	    if (typeof properties !== 'object') properties = {};
-	    this.height = properties.height || 20;
-	    this.width = properties.width || 60;
-	    this.x = properties.x || 100;
-	    this.y = properties.y || 100;
-	    this.world = world;
-	    this.status = properties.status === undefined ? true : properties.status;
-	  }
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var World = __webpack_require__(4);
+
+	var Brick = function Brick(properties, world) {
+	  _classCallCheck(this, Brick);
+
+	  if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
+	  this.height = properties.height || 20;
+	  this.width = properties.width || 60;
+	  this.x = properties.x || 100;
+	  this.y = properties.y || 100;
+	  this.world = world;
+	  this.status = properties.status === undefined ? true : properties.status;
 	};
+
+	;
 
 	module.exports = Brick;
 
@@ -199,13 +249,23 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
+	'use strict';
 
-	class World {
-	  constructor(properties, ball) {
-	    if (typeof properties !== 'object') properties = {};
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+
+	var World = function () {
+	  function World(properties, ball) {
+	    _classCallCheck(this, World);
+
+	    if ((typeof properties === 'undefined' ? 'undefined' : _typeof(properties)) !== 'object') properties = {};
 	    this.height = properties.height || 500;
 	    this.width = properties.width || 900;
 	    this.paddles = [];
@@ -215,119 +275,158 @@
 	    this.play = 1;
 	  }
 
-	  startGame() {
-	    this.play = this.play = 2;
-	  }
+	  _createClass(World, [{
+	    key: 'startGame',
+	    value: function startGame() {
+	      this.play = this.play = 2;
+	    }
+	  }, {
+	    key: 'addPaddle',
+	    value: function addPaddle(paddle) {
+	      this.paddles.push(paddle);
+	    }
+	  }, {
+	    key: 'rightArrowPressed',
+	    value: function rightArrowPressed() {
+	      this.paddles.forEach(function (paddle) {
+	        paddle.moveRight();
+	      });
+	    }
+	  }, {
+	    key: 'leftArrowPressed',
+	    value: function leftArrowPressed() {
+	      this.paddles.forEach(function (paddle) {
+	        paddle.moveLeft();
+	      });
+	    }
+	  }, {
+	    key: 'addBrick',
+	    value: function addBrick(brick) {
+	      this.bricks.push(brick);
+	    }
+	  }, {
+	    key: 'addBall',
+	    value: function addBall(ball) {
+	      this.balls.push(ball);
+	    }
+	  }, {
+	    key: 'launchBall',
+	    value: function launchBall() {
+	      this.balls.forEach(function (ball) {
+	        ball.moveBall();
+	      });
+	    }
+	  }, {
+	    key: 'worldBorderDetection',
+	    value: function worldBorderDetection() {
+	      var _this = this;
 
-	  addPaddle(paddle) {
-	    this.paddles.push(paddle);
-	  }
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithWorld(_this.width, _this.height);
+	      });
+	    }
+	  }, {
+	    key: 'loseGame',
+	    value: function loseGame() {
+	      var _this2 = this;
 
-	  rightArrowPressed() {
-	    this.paddles.forEach(paddle => {
-	      paddle.moveRight();
-	    });
-	  }
-
-	  leftArrowPressed() {
-	    this.paddles.forEach(paddle => {
-	      paddle.moveLeft();
-	    });
-	  }
-
-	  addBrick(brick) {
-	    this.bricks.push(brick);
-	  }
-
-	  addBall(ball) {
-	    this.balls.push(ball);
-	  }
-
-	  launchBall() {
-	    this.balls.forEach(ball => {
-	      ball.moveBall();
-	    });
-	  }
-
-	  worldBorderDetection() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithWorld(this.width, this.height);
-	    });
-	  }
-
-	  loseGame() {
-	    this.balls.forEach(ball => {
-	      if (ball.collisionWithWorldBottom(this.height)) {
-	        return this.play = this.play = 3;
-	      }
-	    });
-	  }
-
-	  paddleDetectionLeft() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleLeft(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddleLeft() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddleLeft(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddle() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddle(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionMiddleRight() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleMiddleRight(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  paddleDetectionRight() {
-	    this.balls.forEach(ball => {
-	      ball.collisionWithPaddleRight(this.paddles[0].y, this.paddles[0].x, this.paddles[0].width);
-	    });
-	  }
-
-	  brickDetection() {
-	    this.bricks.find(brick => {
-	      this.balls.forEach(ball => {
-	        if (ball.collidesWithBrick(brick.x, brick.y, brick.height, brick.width)) {
-	          return ball.speedy = -ball.speedy, brick.status = false;
+	      this.balls.forEach(function (ball) {
+	        if (ball.collisionWithWorldBottom(_this2.height)) {
+	          return _this2.play = _this2.play = 3;
 	        }
 	      });
-	    });
-	  }
-
-	  removeHitBricks() {
-	    this.bricks = this.bricks.filter(brick => brick.status);
-	  }
-
-	  winTheGame() {
-	    if (this.bricks.length === 0) {
-	      return this.play = this.play = 4;
 	    }
-	  }
+	  }, {
+	    key: 'paddleDetectionLeft',
+	    value: function paddleDetectionLeft() {
+	      var _this3 = this;
 
-	  tick() {
-	    this.launchBall();
-	    this.worldBorderDetection();
-	    this.paddleDetectionLeft();
-	    this.paddleDetectionMiddleLeft();
-	    this.paddleDetectionMiddle();
-	    this.paddleDetectionMiddleRight();
-	    this.paddleDetectionRight();
-	    this.brickDetection();
-	    this.removeHitBricks();
-	    this.loseGame();
-	    this.winTheGame();
-	  }
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleLeft(_this3.paddles[0].y, _this3.paddles[0].x, _this3.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddleLeft',
+	    value: function paddleDetectionMiddleLeft() {
+	      var _this4 = this;
 
-	}
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddleLeft(_this4.paddles[0].y, _this4.paddles[0].x, _this4.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddle',
+	    value: function paddleDetectionMiddle() {
+	      var _this5 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddle(_this5.paddles[0].y, _this5.paddles[0].x, _this5.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionMiddleRight',
+	    value: function paddleDetectionMiddleRight() {
+	      var _this6 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleMiddleRight(_this6.paddles[0].y, _this6.paddles[0].x, _this6.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'paddleDetectionRight',
+	    value: function paddleDetectionRight() {
+	      var _this7 = this;
+
+	      this.balls.forEach(function (ball) {
+	        ball.collisionWithPaddleRight(_this7.paddles[0].y, _this7.paddles[0].x, _this7.paddles[0].width);
+	      });
+	    }
+	  }, {
+	    key: 'brickDetection',
+	    value: function brickDetection() {
+	      var _this8 = this;
+
+	      this.bricks.find(function (brick) {
+	        _this8.balls.forEach(function (ball) {
+	          if (ball.collidesWithBrick(brick.x, brick.y, brick.height, brick.width)) {
+	            return ball.speedy = -ball.speedy, brick.status = false;
+	          }
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'removeHitBricks',
+	    value: function removeHitBricks() {
+	      this.bricks = this.bricks.filter(function (brick) {
+	        return brick.status;
+	      });
+	    }
+	  }, {
+	    key: 'winTheGame',
+	    value: function winTheGame() {
+	      if (this.bricks.length === 0) {
+	        return this.play = this.play = 4;
+	      }
+	    }
+	  }, {
+	    key: 'tick',
+	    value: function tick() {
+	      this.launchBall();
+	      this.worldBorderDetection();
+	      this.paddleDetectionLeft();
+	      this.paddleDetectionMiddleLeft();
+	      this.paddleDetectionMiddle();
+	      this.paddleDetectionMiddleRight();
+	      this.paddleDetectionRight();
+	      this.brickDetection();
+	      this.removeHitBricks();
+	      this.loseGame();
+	      this.winTheGame();
+	    }
+	  }]);
+
+	  return World;
+	}();
 
 	module.exports = World;
 
@@ -356,8 +455,8 @@
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
-		module.hot.accept("!!/Users/peterspringer/front_end/game-time/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/game-time/node_modules/mocha/mocha.css", function() {
-			var newContent = require("!!/Users/peterspringer/front_end/game-time/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/game-time/node_modules/mocha/mocha.css");
+		module.hot.accept("!!/Users/peterspringer/front_end/mod_1/game-time/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/mod_1/game-time/node_modules/mocha/mocha.css", function() {
+			var newContent = require("!!/Users/peterspringer/front_end/mod_1/game-time/node_modules/mocha-loader/node_modules/css-loader/index.js!/Users/peterspringer/front_end/mod_1/game-time/node_modules/mocha/mocha.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -620,6 +719,8 @@
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
 	__webpack_require__(15);
 	__webpack_require__(58);
 	__webpack_require__(59);
@@ -634,13 +735,15 @@
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Paddle = __webpack_require__(1);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Paddle = __webpack_require__(1);
 
 	describe('Paddle', function () {
 	  context('checks default values', function () {
 
-	    let paddle = new Paddle();
+	    var paddle = new Paddle();
 
 	    it('has default values', function () {
 	      assert.equal(paddle.height, 10);
@@ -652,18 +755,18 @@
 
 	  context('check that we can set all values of paddle', function () {
 
-	    let heightValue = 10;
-	    let widthValue = 5;
-	    let xValue = 70;
-	    let yValue = 40;
-	    let properties = {
+	    var heightValue = 10;
+	    var widthValue = 5;
+	    var xValue = 70;
+	    var yValue = 40;
+	    var properties = {
 	      height: heightValue,
 	      width: widthValue,
 	      x: xValue,
 	      y: yValue
 	    };
 
-	    const paddle = new Paddle(properties);
+	    var paddle = new Paddle(properties);
 
 	    it('assigns xValue to the paddle x', function () {
 	      assert.equal(paddle.x, xValue);
@@ -684,24 +787,24 @@
 
 	  context('check that paddle methods exist', function () {
 	    it('should have a method called "moveRight()"', function () {
-	      let paddle = new Paddle();
+	      var paddle = new Paddle();
 	      assert.isFunction(paddle.moveRight);
 	    });
 
 	    it('should have a method called "moveLeft()"', function () {
-	      let paddle = new Paddle();
+	      var paddle = new Paddle();
 	      assert.isFunction(paddle.moveLeft);
 	    });
 	  });
 
 	  context('paddle should be able to move left and right', function () {
 	    it('should move to the right on x axis', function () {
-	      let paddle = new Paddle();
+	      var paddle = new Paddle();
 	      paddle.moveRight();
 	      assert.equal(paddle.x, 420);
 	    });
 	    it('should move to the left on x axis', function () {
-	      let paddle = new Paddle();
+	      var paddle = new Paddle();
 	      paddle.moveLeft();
 	      assert.equal(paddle.x, 380);
 	    });
@@ -10622,15 +10725,17 @@
 /* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
+	'use strict';
 
-	const Brick = __webpack_require__(3);
+	var assert = __webpack_require__(16).assert;
+
+	var Brick = __webpack_require__(3);
 
 	describe('Brick', function () {
 	  context('checks default values', function () {
 
 	    it('has default values', function () {
-	      let brick = new Brick();
+	      var brick = new Brick();
 
 	      assert.equal(brick.height, 20);
 	      assert.equal(brick.width, 60);
@@ -10641,18 +10746,18 @@
 
 	  context('check that we can set all values of brick', function () {
 
-	    let heightValue = 20;
-	    let widthValue = 30;
-	    let xValue = 60;
-	    let yValue = 40;
-	    let properties = {
+	    var heightValue = 20;
+	    var widthValue = 30;
+	    var xValue = 60;
+	    var yValue = 40;
+	    var properties = {
 	      height: heightValue,
 	      width: widthValue,
 	      x: xValue,
 	      y: yValue
 	    };
 
-	    const brick = new Brick(properties);
+	    var brick = new Brick(properties);
 
 	    it('assigns xValue to brick x', function () {
 	      assert.equal(brick.x, xValue);
@@ -10671,12 +10776,12 @@
 	    });
 
 	    it('defaults to having a status of true', function () {
-	      let brick = new Brick();
+	      var brick = new Brick();
 	      assert.isTrue(brick.status);
 	    });
 
 	    it('can take a status option of false that sets the status of the brick to false', function () {
-	      let brick = new Brick({ status: false });
+	      var brick = new Brick({ status: false });
 	      assert.isFalse(brick.status);
 	    });
 	  });
@@ -10686,13 +10791,15 @@
 /* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Ball = __webpack_require__(2);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Ball = __webpack_require__(2);
 
 	describe('Ball', function () {
 	  context('checks default values', function () {
 
-	    let ball = new Ball();
+	    var ball = new Ball();
 
 	    it('has default values', function () {
 	      assert.equal(ball.height, 16);
@@ -10706,13 +10813,13 @@
 
 	  context('check that set all values of ball', function () {
 
-	    let heightValue = 7;
-	    let widthValue = 7;
-	    let xValue = 20;
-	    let yValue = 20;
-	    let speedxValue = 5;
-	    let speedyValue = -2;
-	    let properties = {
+	    var heightValue = 7;
+	    var widthValue = 7;
+	    var xValue = 20;
+	    var yValue = 20;
+	    var speedxValue = 5;
+	    var speedyValue = -2;
+	    var properties = {
 	      height: heightValue,
 	      width: widthValue,
 	      x: xValue,
@@ -10721,7 +10828,7 @@
 	      speedy: speedyValue
 	    };
 
-	    const ball = new Ball(properties);
+	    var ball = new Ball(properties);
 
 	    it('assigns xValue to the ball x', function () {
 	      assert.equal(ball.x, xValue);
@@ -10750,7 +10857,7 @@
 
 	  context('check that ball methods exist', function () {
 
-	    let ball = new Ball();
+	    var ball = new Ball();
 
 	    it('should have a method called moveBall()', function () {
 	      assert.isFunction(ball.moveBall);
@@ -10792,7 +10899,7 @@
 	  context('check that ball moves around world', function () {
 
 	    it('should move on the x and y axis when moveBall() is called', function () {
-	      let ball = new Ball();
+	      var ball = new Ball();
 	      ball.moveBall();
 	      assert.equal(ball.x, 446);
 	      assert.equal(ball.y, 401);
@@ -10804,67 +10911,71 @@
 /* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
+	'use strict';
 
-	const World = __webpack_require__(4);
-	const Brick = __webpack_require__(3);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var assert = __webpack_require__(16).assert;
+
+	var World = __webpack_require__(4);
+	var Brick = __webpack_require__(3);
 
 	describe('World', function () {
 	  context('World contains the basics', function () {
 
 	    it('world is an object', function () {
-	      let world = new World();
-	      assert.equal(typeof world, "object");
+	      var world = new World();
+	      assert.equal(typeof world === 'undefined' ? 'undefined' : _typeof(world), "object");
 	    });
 
 	    it('world has a paddle', function () {
-	      const world = new World();
-	      assert.equal(typeof world.paddles, "object");
+	      var world = new World();
+	      assert.equal(_typeof(world.paddles), "object");
 	    });
 
 	    it('has a ball', function () {
-	      let world = new World();
-	      assert.equal(typeof world.balls, "object");
+	      var world = new World();
+	      assert.equal(_typeof(world.balls), "object");
 	    });
 
 	    it('has a brick', function () {
-	      let world = new World();
-	      assert.equal(typeof world.bricks, "object");
+	      var world = new World();
+	      assert.equal(_typeof(world.bricks), "object");
 	    });
 
 	    it('should have default values', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.equal(world.height, 500);
 	      assert.equal(world.width, 900);
 	    });
 
 	    it('should take given values as properties', function () {
-	      let heightValue = 400;
-	      let widthValue = 800;
-	      let properties = {
+	      var heightValue = 400;
+	      var widthValue = 800;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue
 	      };
-	      const world = new World(properties);
+	      var world = new World(properties);
 
 	      assert.equal(world.height, 400);
 	      assert.equal(world.width, 800);
 	    });
 
 	    it('should have a bricks property, which starts out as an empty array', function () {
-	      let world = new World(100, 100);
+	      var world = new World(100, 100);
 	      assert.isArray(world.bricks);
 	      assert.deepEqual(world.bricks, []);
 	    });
 
 	    it('should have a paddles property, which starts out as an empty array', function () {
-	      let world = new World(100, 100);
+	      var world = new World(100, 100);
 	      assert.isArray(world.paddles);
 	      assert.deepEqual(world.paddles, []);
 	    });
 
 	    it('should have a balls property, which starts out as an empty array', function () {
-	      let world = new World(100, 100);
+	      var world = new World(100, 100);
 	      assert.isArray(world.balls);
 	      assert.deepEqual(world.balls, []);
 	    });
@@ -10873,37 +10984,37 @@
 	  context('check that world has functions', function () {
 
 	    it('should have a method called startGame()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.startGame);
 	    });
 
 	    it('should have a method called addPaddle()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.addPaddle);
 	    });
 
 	    it('should have a method called rightArrowPressed()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.rightArrowPressed);
 	    });
 
 	    it('should have a method called leftArrowPressed()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.leftArrowPressed);
 	    });
 
 	    it('should have a method called worldBorderDetection()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.worldBorderDetection);
 	    });
 
 	    it('should have a method called loseGame()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.loseGame);
 	    });
 
 	    it('should have a method called winTheGame()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.winTheGame);
 	    });
 	  });
@@ -10913,21 +11024,23 @@
 /* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Paddle = __webpack_require__(1);
-	const World = __webpack_require__(4);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Paddle = __webpack_require__(1);
+	var World = __webpack_require__(4);
 
 	describe('Paddle in relation to world', function () {
 
 	  it('should know about a world if it is passed in', function () {
-	    let world = new World();
-	    let paddle = new Paddle({}, world);
+	    var world = new World();
+	    var paddle = new Paddle({}, world);
 	    assert.equal(paddle.world, world);
 	  });
 
 	  it('should know about a world if it is generated using world.addPaddle()', function () {
-	    let world = new World();
-	    let paddle = new Paddle({}, world);
+	    var world = new World();
+	    var paddle = new Paddle({}, world);
 	    world.addPaddle(paddle);
 	    assert.equal(paddle.world, world);
 	  });
@@ -10935,21 +11048,21 @@
 
 	describe('World in relation to paddle', function () {
 	  it('should have a method called addPaddle()', function () {
-	    let world = new World();
+	    var world = new World();
 	    assert.isFunction(world.addPaddle);
 	  });
 
 	  it('should know about the paddle added to world', function () {
-	    let world = new World();
-	    let paddle = new Paddle({}, world);
+	    var world = new World();
+	    var paddle = new Paddle({}, world);
 
 	    world.addPaddle(paddle);
 	    assert.include(world.paddles, paddle);
 	  });
 
 	  it('should move the paddle right when rightArrowpressed() is called', function () {
-	    let world = new World();
-	    let paddle = new Paddle();
+	    var world = new World();
+	    var paddle = new Paddle();
 	    world.addPaddle(paddle);
 
 	    world.rightArrowPressed();
@@ -10957,8 +11070,8 @@
 	  });
 
 	  it('should move the paddle left when leftArrowpressed() is called', function () {
-	    let world = new World();
-	    let paddle = new Paddle();
+	    var world = new World();
+	    var paddle = new Paddle();
 	    world.addPaddle(paddle);
 
 	    world.leftArrowPressed();
@@ -10970,48 +11083,50 @@
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Paddle = __webpack_require__(1);
-	const Ball = __webpack_require__(2);
-	const World = __webpack_require__(4);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Paddle = __webpack_require__(1);
+	var Ball = __webpack_require__(2);
+	var World = __webpack_require__(4);
 
 	describe('Ball in Relation to World', function () {
 
 	  it('should know about a world if it is passed in', function () {
-	    let world = new World();
-	    let ball = new Ball({}, world);
+	    var world = new World();
+	    var ball = new Ball({}, world);
 	    assert.equal(ball.world, world);
 	  });
 
 	  it('should know about a world if it is generated using world.addBall()', function () {
-	    let world = new World();
-	    let ball = new Ball({}, world);
+	    var world = new World();
+	    var ball = new Ball({}, world);
 	    world.addBall(ball);
 	    assert.equal(ball.world, world);
 	  });
 
 	  describe('world in relation to ball', function () {
 	    it('should have a method called addBall()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.addBall);
 	    });
 
 	    it('should know about the ball added to the world', function () {
-	      let world = new World();
-	      let ball = new Ball({}, world);
+	      var world = new World();
+	      var ball = new Ball({}, world);
 
 	      world.addBall(ball);
 	      assert.include(world.balls, ball);
 	    });
 
 	    it('should have a method called launchBall()', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.launchBall);
 	    });
 
 	    it('should launch the ball when launchBall() is called', function () {
-	      let world = new World();
-	      let ball = new Ball({}, world);
+	      var world = new World();
+	      var ball = new Ball({}, world);
 
 	      world.addBall(ball);
 	      world.launchBall();
@@ -11020,14 +11135,14 @@
 	    });
 
 	    it('should know when it collides with world bottom', function () {
-	      let world = new World();
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 20;
-	      let yValue = 499;
-	      let speedxValue = 5;
-	      let speedyValue = 2;
-	      let properties = {
+	      var world = new World();
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 20;
+	      var yValue = 499;
+	      var speedxValue = 5;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11035,21 +11150,21 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties);
+	      var ball = new Ball(properties);
 	      ball.collisionWithWorldBottom(world.height);
 
 	      assert.isTrue(ball.collisionWithWorldBottom(world.height));
 	    });
 
 	    it('should know when it collides with world top', function () {
-	      let world = new World();
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 20;
-	      let yValue = -3;
-	      let speedxValue = 5;
-	      let speedyValue = 2;
-	      let properties = {
+	      var world = new World();
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 20;
+	      var yValue = -3;
+	      var speedxValue = 5;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11057,21 +11172,21 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties);
+	      var ball = new Ball(properties);
 	      ball.collisionWithWorld(world.width, world.height);
 
 	      assert.isTrue(ball.collisionWithWorld(world.width, world.height));
 	    });
 
 	    it('should know when it collides with world left', function () {
-	      let world = new World();
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = -3;
-	      let yValue = 20;
-	      let speedxValue = 2;
-	      let speedyValue = 2;
-	      let properties = {
+	      var world = new World();
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = -3;
+	      var yValue = 20;
+	      var speedxValue = 2;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11079,21 +11194,21 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties);
+	      var ball = new Ball(properties);
 	      ball.collisionWithWorld(world.width, world.height);
 
 	      assert.isTrue(ball.collisionWithWorld(world.width, world.height));
 	    });
 
 	    it('should know when it collides with world right', function () {
-	      let world = new World();
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 899;
-	      let yValue = 20;
-	      let speedxValue = 2;
-	      let speedyValue = 2;
-	      let properties = {
+	      var world = new World();
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 899;
+	      var yValue = 20;
+	      var speedxValue = 2;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11101,7 +11216,7 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties);
+	      var ball = new Ball(properties);
 	      ball.collisionWithWorld(world.width, world.height);
 	      debugger;
 
@@ -11114,23 +11229,25 @@
 /* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Paddle = __webpack_require__(1);
-	const World = __webpack_require__(4);
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Paddle = __webpack_require__(1);
+	var World = __webpack_require__(4);
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
 
 	describe('Brick in relation to world', function () {
 
 	  it('should know about a world if it is passed in', function () {
-	    let world = new World();
-	    let brick = new Brick({}, world);
+	    var world = new World();
+	    var brick = new Brick({}, world);
 	    assert.equal(brick.world, world);
 	  });
 
 	  it('should know about a world if it is generated using world.addBrick()', function () {
-	    let world = new World();
-	    let brick = new Brick({}, world);
+	    var world = new World();
+	    var brick = new Brick({}, world);
 	    world.addBrick(brick);
 	    assert.equal(brick.world, world);
 	  });
@@ -11138,13 +11255,13 @@
 
 	describe('World in relation to brick', function () {
 	  it('should have a method called addBrick()', function () {
-	    let world = new World();
+	    var world = new World();
 	    assert.isFunction(world.addBrick);
 	  });
 
 	  it('should know about the brick added to world', function () {
-	    let world = new World();
-	    let brick = new Brick({}, world);
+	    var world = new World();
+	    var brick = new Brick({}, world);
 
 	    world.addBrick(brick);
 	    assert.include(world.bricks, brick);
@@ -11153,15 +11270,15 @@
 	  describe('removeHitBricks()', function () {
 
 	    it('should have a method for removing bricks', function () {
-	      let world = new World();
+	      var world = new World();
 	      assert.isFunction(world.removeHitBricks);
 	    });
 
 	    it('should remove all bricks with a status of false', function () {
-	      let world = new World();
+	      var world = new World();
 
-	      let activitedBrick = new Brick({ status: true }, world);
-	      let deactivitedBrick = new Brick({ status: false }, world);
+	      var activitedBrick = new Brick({ status: true }, world);
+	      var deactivitedBrick = new Brick({ status: false }, world);
 
 	      world.addBrick(activitedBrick);
 	      world.addBrick(deactivitedBrick);
@@ -11179,40 +11296,42 @@
 /* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Ball = __webpack_require__(2);
-	const Paddle = __webpack_require__(1);
-	const World = __webpack_require__(4);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Ball = __webpack_require__(2);
+	var Paddle = __webpack_require__(1);
+	var World = __webpack_require__(4);
 
 	describe('Ball in  Relation to Paddle', function () {
 	  context('World has methods for ball and paddle interaction', function () {
 
 	    it('should have a method called paddleDetectionLeft()', function () {
-	      let world = new World();
+	      var world = new World();
 
 	      assert.isFunction(world.paddleDetectionLeft);
 	    });
 
 	    it('should have a method called paddleDetectionMiddleLeft()', function () {
-	      let world = new World();
+	      var world = new World();
 
 	      assert.isFunction(world.paddleDetectionMiddleLeft);
 	    });
 
 	    it('should have a method called paddleDetectionMiddle()', function () {
-	      let world = new World();
+	      var world = new World();
 
 	      assert.isFunction(world.paddleDetectionMiddle);
 	    });
 
 	    it('should have a method called paddleDetectionMiddleRight()', function () {
-	      let world = new World();
+	      var world = new World();
 
 	      assert.isFunction(world.paddleDetectionMiddleRight);
 	    });
 
 	    it('should have a method called paddleDetectionRight()', function () {
-	      let world = new World();
+	      var world = new World();
 
 	      assert.isFunction(world.paddleDetectionRight);
 	    });
@@ -11221,13 +11340,13 @@
 	  context('Ball bounces off top of paddle', function () {
 
 	    it('should bounce off rigth side of paddle', function () {
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 401;
-	      let yValue = 443;
-	      let speedxValue = 5;
-	      let speedyValue = 2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 401;
+	      var yValue = 443;
+	      var speedxValue = 5;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11235,12 +11354,12 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      const ball = new Ball(properties);
-	      const world = new World();
-	      const paddle = new Paddle();
-	      let paddleY = paddle.y;
-	      let paddleX = paddle.x;
-	      let paddleWidth = paddle.height;
+	      var ball = new Ball(properties);
+	      var world = new World();
+	      var paddle = new Paddle();
+	      var paddleY = paddle.y;
+	      var paddleX = paddle.x;
+	      var paddleWidth = paddle.height;
 
 	      ball.moveBall();
 	      ball.collisionWithPaddleLeft(paddleY, paddleX, paddleWidth);
@@ -11249,13 +11368,13 @@
 	    });
 
 	    it('should bounce off rigth middle side of paddle', function () {
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 400;
-	      let yValue = 443;
-	      let speedxValue = 5;
-	      let speedyValue = 2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 400;
+	      var yValue = 443;
+	      var speedxValue = 5;
+	      var speedyValue = 2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11263,12 +11382,12 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      const ball = new Ball(properties);
-	      const world = new World();
-	      const paddle = new Paddle();
-	      let paddleY = paddle.y;
-	      let paddleX = paddle.x;
-	      let paddleWidth = paddle.height;
+	      var ball = new Ball(properties);
+	      var world = new World();
+	      var paddle = new Paddle();
+	      var paddleY = paddle.y;
+	      var paddleX = paddle.x;
+	      var paddleWidth = paddle.height;
 
 	      ball.moveBall();
 	      ball.collisionWithPaddleLeft(paddleY, paddleX, paddleWidth);
@@ -11282,22 +11401,24 @@
 /* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const assert = __webpack_require__(16).assert;
-	const Ball = __webpack_require__(2);
-	const Brick = __webpack_require__(3);
-	const World = __webpack_require__(4);
+	'use strict';
+
+	var assert = __webpack_require__(16).assert;
+	var Ball = __webpack_require__(2);
+	var Brick = __webpack_require__(3);
+	var World = __webpack_require__(4);
 
 	describe('this is a brick ball test', function () {
 	  context('context for ball', function () {
 	    it('collisoin should return true if we hit the brick from the bottom', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 130;
-	      let yValue = 119;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 130;
+	      var yValue = 119;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11305,20 +11426,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the right', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 94;
-	      let yValue = 110;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 94;
+	      var yValue = 110;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11326,20 +11447,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the left', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 159;
-	      let yValue = 110;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 159;
+	      var yValue = 110;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11347,20 +11468,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the top', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 130;
-	      let yValue = 94;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 130;
+	      var yValue = 94;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11368,20 +11489,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the bottom-left corner', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 94;
-	      let yValue = 119;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 94;
+	      var yValue = 119;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11389,20 +11510,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the top-left', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 94;
-	      let yValue = 94;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 94;
+	      var yValue = 94;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11410,20 +11531,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the bottom-right', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 159;
-	      let yValue = 119;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 159;
+	      var yValue = 119;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11431,20 +11552,20 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
 
 	    it('collision should return true if we hit the brick from the top-right', function () {
 
-	      let heightValue = 7;
-	      let widthValue = 7;
-	      let xValue = 159;
-	      let yValue = 94;
-	      let speedxValue = 5;
-	      let speedyValue = -2;
-	      let properties = {
+	      var heightValue = 7;
+	      var widthValue = 7;
+	      var xValue = 159;
+	      var yValue = 94;
+	      var speedxValue = 5;
+	      var speedyValue = -2;
+	      var properties = {
 	        height: heightValue,
 	        width: widthValue,
 	        x: xValue,
@@ -11452,7 +11573,7 @@
 	        speedx: speedxValue,
 	        speedy: speedyValue
 	      };
-	      let ball = new Ball(properties, "", "", new Brick());
+	      var ball = new Ball(properties, "", "", new Brick());
 
 	      assert.equal(true, ball.collidesWithBrick(ball.brick.x, ball.brick.y, ball.brick.height, ball.brick.width));
 	    });
