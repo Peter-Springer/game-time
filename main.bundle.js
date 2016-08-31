@@ -57,7 +57,7 @@
 	var paddles = world.addPaddle(new Paddle({}, world));
 	var balls = world.addBall(new Ball({}, world));
 
-	placeBricks = function placeBricks() {
+	var placeBricks = function placeBricks() {
 	  for (var i = 0; i < 37; i++) {
 	    world.addBrick(new Brick({}, world));
 	    world.bricks[i].x = 10 + i % 12 * 75;
