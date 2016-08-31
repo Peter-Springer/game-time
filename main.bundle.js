@@ -75,7 +75,7 @@
 
 	placeBricks();
 
-	renderWorld = function renderWorld(context) {
+	var renderWorld = function renderWorld(context) {
 	  context.clearRect(0, 0, world.width, world.height);
 
 	  world.paddles.forEach(function (paddle) {
@@ -92,7 +92,7 @@
 	  });
 	};
 
-	renderStartScreen = function renderStartScreen(context) {
+	var renderStartScreen = function renderStartScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
@@ -109,7 +109,7 @@
 	  context.fillText("Use the left and right arrows to move your paddle.", canvas.width / 2, 350);
 	};
 
-	renderLoseScreen = function renderLoseScreen(context) {
+	var renderLoseScreen = function renderLoseScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
@@ -122,7 +122,7 @@
 	  context.fillText("Press esc to restart.", canvas.width / 2, 350);
 	};
 
-	renderWinScreen = function renderWinScreen(context) {
+	var renderWinScreen = function renderWinScreen(context) {
 	  context.fillStyle = "grey";
 	  context.fillRect(0, 0, world.width, world.height);
 	  context.font = "100px Impact";
